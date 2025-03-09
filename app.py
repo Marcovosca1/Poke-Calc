@@ -7,6 +7,15 @@ class App(ctk.CTk):
         self.columnconfigure(0, weight=1)
         self.rowconfigure(0, weight=1)
 
+        # Disabled buttons
+        self.disabledPrimary = None
+        self.disabledSecondary = None
+        self.blockedSecondary = None
+
+        # Lists of buttons
+        self.primaryList = []
+        self.secondaryList = []
+
         # Primary Type
         self.framePrimary = ctk.CTkFrame(master=self)
         self.framePrimary.grid(row=0, column=0, padx=5, pady=20, sticky="nsew")
@@ -21,20 +30,30 @@ class App(ctk.CTk):
         number = data['Types'][-1]['id']
         rowCount = 0
         colCount = 0
-        for i in range(0, number):
+        for i in range(0, number+1):
             if i % 3 == 0:
                 rowCount += 1
                 colCount = 0
-            btn = TypeButton(frame, data['Types'][i]['name'], data['Types'][i]['color'], adjust_brightness(data['Types'][i]['color'], 0.8))
+            btn = TypeButton(frame, data['Types'][i]['name'], data['Types'][i]['color'], adjust_brightness(data['Types'][i]['color'], 0.8), i, self)
             btn.grid(row=rowCount, column=colCount, padx=2, pady=2)
             colCount += 1
+            if secondary:
+                self.secondaryList.append(btn)
+            else:
+                self.primaryList.append(btn)
         if secondary:
-            btn = ctk.CTkButton(master=frame, text="None", fg_color="#aaaaaa", hover_color=adjust_brightness("#aaaaaa", 0.8), text_color="#000000", border_color="#fdffbd", border_width=1)
-            if number % 3 == 0:
+            btn = TypeButton(frame, "None", "#aaaaaa", adjust_brightness("#aaaaaa", 0.8), number+1, self)
+            if (number+1) % 3 == 0:
                 rowCount += 1
                 colCount = 0
             else:
                 colCount += 1
             btn.grid(row=rowCount, column=colCount, padx=2, pady=2)
+
+    def btn_click(self, frame, index):
+        if frame == self.framePrimary:
+            print(f"{self.primaryList[index]._text} has been clicked")
+        # elif frame == self.frameSecondary and self.disabledSecondary != :
+        
 
 # =========== DE ADAUGAT FUNCTIONALITATEA BUTOANELOR DIN TYPEBUTTON.PY =============
