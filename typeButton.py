@@ -1,6 +1,6 @@
 import customtkinter as ctk
 from globals import *
-import json
+
 
 class TypeButton(ctk.CTkButton):
     def __init__(self, master, text, fg_color, hover_color, index, context,font=("Arial", 14), text_color="#000000", border_color="#fdffbd", border_width = 1):
