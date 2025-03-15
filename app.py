@@ -1,12 +1,33 @@
 from typeButton import *
-
+from fileMenu import *
 
 class App(ctk.CTk):
     def __init__(self, data):
         super().__init__()
         self.data = data
         self.title("Pokemon Type Calculator")
-        self.root = ctk.CTkFrame(master=self)
+        self.resizable(False, False)
+
+        # Making the menus for the application #
+        # ------------------------------------ #
+        self.menubar = tk.Menu(self)
+
+        # File Menu
+        file_menu = FileMenu(self.menubar)
+
+        # # Options Menu
+        # options_menu = tk.Menu(self.menubar, tearoff=0)
+        # options_menu.add_command(label="Settings")
+
+        # Main Menu
+        self.menubar.add_cascade(label="File", menu=file_menu)
+        # self.menubar.add_cascade(label="Options", menu=options_menu)
+
+        self.config(menu=self.menubar)
+
+        # Main frame containing the buttons and the weakness display #
+        # ---------------------------------------------------------- #
+        self.root = ctk.CTkFrame(self)
         self.root.grid(row=0, column=0, padx=5, pady=5, sticky="nsew")
         self.root.columnconfigure(0, weight=1)
         self.root.columnconfigure(1, weight=1)
@@ -150,23 +171,16 @@ class App(ctk.CTk):
             match result:
                 case 4:
                     self.fourList.append(self.primaryList[i])
-                    print(f"{self.primaryList[i]._text} is 4 times")
                 case 2:
                     self.twoList.append(self.primaryList[i])
-                    print(f"{self.primaryList[i]._text} is 2 times")
                 case 1:
                     self.oneList.append(self.primaryList[i])
-                    print(f"{self.primaryList[i]._text} is 1 time")
                 case 0.5:
                     self.halfList.append(self.primaryList[i])
-                    print(f"{self.primaryList[i]._text} is 0.5 times")
                 case 0.25:
                     self.quarterList.append(self.primaryList[i])
-                    print(f"{self.primaryList[i]._text} is 0.25 times")
                 case 0:
                     self.zeroList.append(self.primaryList[i])
-                    print(f"{self.primaryList[i]._text} is 0 times")
-        print("=====================================")
         self.showResults(data)
 
 

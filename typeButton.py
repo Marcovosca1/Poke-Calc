@@ -22,6 +22,7 @@ class TypeButton(ctk.CTkButton):
     def clicked(self):
         self.configure(state="disabled")
         self.configure(fg_color=adjust_brightness(self.cget("fg_color"), 0.5))
+        self.configure(border_color=adjust_brightness(self.cget("border_color"), 0.5))
 
     def blocked(self):
         self.configure(state="disabled")

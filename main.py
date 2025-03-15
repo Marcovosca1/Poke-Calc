@@ -2,7 +2,7 @@ from app import *
 import json
 
 if __name__ == "__main__":
-    f = open("data.json")
+    f = open("Datas/types1.json")
     data = json.load(f)
 
     mainApp = App(data)
